@@ -4,14 +4,12 @@ namespace Marketplace.Domain
 {
     public class ClassifiedAd
     {
-        public Guid Id { get; }
+        public ClassifiedAdId Id { get; }
 
-        public ClassifiedAd(Guid id, Guid ownerId)
+        public ClassifiedAd(ClassifiedAdId id, UserId ownerId)
         {
             if(id == default)
                 throw new ArgumentException("Identity must be specified", nameof(id));
-            if (ownerId == default)
-                throw new ArgumentException("Owner id must be specified", nameof(ownerId));
 
             Id = id;
             this.ownerId = ownerId;
@@ -23,7 +21,7 @@ namespace Marketplace.Domain
 
         public void UpdatePrice(decimal price) => this.price = price;
 
-        private Guid ownerId;
+        private UserId ownerId;
         private string title;
         private string text;
         private decimal price;
