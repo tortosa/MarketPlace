@@ -1,22 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Marketplace.Framework;
 
 namespace Marketplace.Domain
 {
-    public class Money : IEquatable<Money>
+    public class Money : Value<Money>
     {
         public decimal Amount { get; }
 
         public Money(decimal amount) => Amount = amount;
-
-        public bool Equals(Money other)
-        {
-            if(ReferenceEquals(null, other)) return false;
-            if(ReferenceEquals(this, other)) return true;
-            return Amount.Equals(other.Amount);
-        }
     }
 }
