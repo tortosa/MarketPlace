@@ -1,12 +1,23 @@
 ﻿using Marketplace.Framework;
+using System;
 
 namespace Marketplace.Domain
 {
     public class Money : Value<Money>
     {
+        private const int decimalsAllowed = 2;
         public decimal Amount { get; }
 
-        public Money(decimal amount) => Amount = amount;
+        public static Money FromDecimal(decimal amount) => new Money(amount);
+        public static Money FromString(string amount) => new Money(decimal.Parse(amount));
+
+        protected Money(decimal amount)
+        {
+            if(decimal.Round(amount, decimalsAllowed) != amount)
+                throw new ArgumentOutOfRangeException(nameof(amount), $"Amount cannot have more than {decimalsAllowed} decimals"); 
+
+            Amount = amount;
+        }
 
         public Money Add(Money summand) => new Money(Amount + summand.Amount);
 
